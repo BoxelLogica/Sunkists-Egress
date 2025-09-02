@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://nk8rqxnijbm4"]
+
+[ext_resource type="Script" uid="uid://cpdecykbvosqh" path="res://projectiles/scripts/projectile.gd" id="1_hb674"]
+[ext_resource type="Texture2D" uid="uid://cobcpnyemrdc5" path="res://1UNUSED/projectileSprite.png" id="2_8hjh0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_joc7u"]
+size = Vector3(0.25, 0.25, 0.1)
+
+[node name="ProjectileWrapper" type="Area3D"]
+script = ExtResource("1_hb674")
+hurt = "Player"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+alpha_cut = 2
+texture = ExtResource("2_8hjh0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_joc7u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

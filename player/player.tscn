@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://b66rh8likrstv"]
+
+[ext_resource type="Script" uid="uid://bg8cu8ubqb8a3" path="res://player/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://kocqfxtsgm62" path="res://player/sunkist.png" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://b81gxi0kqkoa6" path="res://player/reticle-dot.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://cp2ao6ugayg4o" path="res://player/healthBar.png" id="4_yw30f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqtel"]
+size = Vector3(0.6, 0.55, 0.1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3pqv"]
+bg_color = Color(0, 0, 0, 0.54902)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qjkh3"]
+texture = ExtResource("4_yw30f")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i3pqv"]
+viewport_path = NodePath("ProgressBarViewport")
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_onrkg")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shaded = true
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("2_onrkg")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hqtel")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 13.5, 13.5)
+projection = 1
+size = 10.0
+far = 64.0
+
+[node name="RayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 1)
+collide_with_areas = true
+
+[node name="Reticle" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+billboard = 1
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("3_i3pqv")
+
+[node name="ProgressBarViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressBarViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -9.5
+offset_right = 51.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i3pqv")
+theme_override_styles/fill = SubResource("StyleBoxTexture_qjkh3")
+max_value = 5.0
+step = 1.0
+value = 2.0
+show_percentage = false
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898001, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_i3pqv")

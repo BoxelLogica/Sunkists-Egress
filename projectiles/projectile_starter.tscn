@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3r150f3xlja5"]
+
+[ext_resource type="Script" uid="uid://cpdecykbvosqh" path="res://projectiles/scripts/projectile.gd" id="1_p8d6m"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_rdysf"]
+outer_radius = 0.2
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p8d6m"]
+points = PackedVector3Array(-0.489827, -0.0144916, -0.0917832, 0.489673, 0.016042, 0.0917416, 0.489829, -0.0144895, 0.0917708, -0.0918251, -0.0144893, 0.489821, -0.322707, 0.147494, 0.190699, 0.0597357, 0.120474, -0.433873, 0.10293, -0.146259, -0.367575, -0.102953, -0.146258, 0.367572, 0.234661, 0.147446, 0.293258, 0.296157, -0.132486, 0.296143, -0.312078, -0.118107, -0.312133, 0.38853, 0.105355, -0.239011, -0.294821, 0.133474, -0.294875, -0.419925, -0.0891903, 0.209947, 0.358751, -0.103849, -0.283995, -0.0766732, -0.0298397, -0.490422, 0.303626, 0.0159232, 0.394639, 0.366259, 0.147317, -0.0878449, -0.367543, -0.14627, -0.10291, -0.135179, 0.105892, 0.43559, 0.22823, -0.0296213, -0.441169, 0.367593, -0.146263, 0.102813, -0.409285, 0.0462338, 0.272866, -0.316348, 0.0459545, -0.376626, -0.451546, 0.106139, -0.060177, 0.135473, -0.104583, 0.436621, -0.0878964, 0.147316, -0.366249, 0.121339, 0.061462, 0.47042, 0.435582, 0.105912, 0.135153, 0.456935, -0.0448948, -0.182754, -0.2731, -0.0447239, 0.409682, 0.415634, -0.13281, -0.0444552)
+
+[node name="ProjectileStarter" type="Area3D"]
+script = ExtResource("1_p8d6m")
+hurt = "Player"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.56, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("TorusMesh_rdysf")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.56, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_p8d6m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

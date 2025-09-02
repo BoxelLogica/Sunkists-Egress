@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://k1vjs75e83xy"]
+
+[ext_resource type="Script" uid="uid://cpdecykbvosqh" path="res://projectiles/scripts/projectile.gd" id="1_s6me8"]
+[ext_resource type="Script" uid="uid://dckegxknpesh3" path="res://projectiles/scripts/projectile_test_mesh.gd" id="2_osko8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ighsu"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wrf7x"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="ProjectileTest" type="Area3D"]
+script = ExtResource("1_s6me8")
+hurt = "Player"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ighsu")
+script = ExtResource("2_osko8")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wrf7x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
